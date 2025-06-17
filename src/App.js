@@ -18,7 +18,10 @@ function Resources() {
   });
 
   useEffect(() => {
-    fetchResources().then(setResources);
+    fetchResources().then((data) => {
+      console.log("Fetched from backend:", data);
+      setResources(data);
+    });
   }, []);
 
   const handleChange = (e) => {
