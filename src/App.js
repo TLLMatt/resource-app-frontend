@@ -21,8 +21,13 @@ function Resources() {
     fetchResources().then((data) => {
       console.log("Fetched from backend:", data);
       setResources(data);
+      console.log("Setting resources state:", data);
     });
   }, []);
+
+  useEffect(() => {
+    console.log("Current rendered resources:", resources);
+  }, [resources]);
 
   const handleChange = (e) => {
     setNewResource({ ...newResource, [e.target.name]: e.target.value });
