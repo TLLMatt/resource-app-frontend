@@ -12,7 +12,9 @@ function Resources() {
     name: "",
     role: "",
     availability: "",
-    status: ""
+    available_from: "",
+    available_to: "",
+    status: "proposed"
   });
 
   useEffect(() => {
@@ -27,7 +29,14 @@ function Resources() {
     e.preventDefault();
     const created = await createResource(newResource);
     setResources([...resources, created]);
-    setNewResource({ name: "", role: "", availability: "", status: "" });
+    setNewResource({
+      name: "",
+      role: "",
+      availability: "",
+      available_from: "",
+      available_to: "",
+      status: "proposed"
+    });
   };
 
   return (
@@ -35,7 +44,9 @@ function Resources() {
       <h2>Resources</h2>
       <ul>
         {resources.map((res) => (
-          <li key={res.id}>{res.name} - {res.role} - {res.status}</li>
+          <li key={res.id}>
+            {res.name} - {res.role} - {res.status} ({res.available_from} to {res.available_to})
+          </li>
         ))}
       </ul>
 
@@ -44,7 +55,14 @@ function Resources() {
         <input name="name" placeholder="Name" value={newResource.name} onChange={handleChange} required />
         <input name="role" placeholder="Role" value={newResource.role} onChange={handleChange} required />
         <input name="availability" placeholder="Availability" value={newResource.availability} onChange={handleChange} />
-        <input name="status" placeholder="Status" value={newResource.status} onChange={handleChange} />
+        <input name="available_from" type="date" value={newResource.available_from} onChange={handleChange} />
+        <input name="available_to" type="date" value={newResource.available_to} onChange={handleChange} />
+        <select name="status" value={newResource.status} onChange={handleChange}>
+          <option value="proposed">Proposed</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="completed">Completed</option>
+        </select>
         <button type="submit">Add Resource</button>
       </form>
     </div>
